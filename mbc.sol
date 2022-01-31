@@ -30,11 +30,11 @@ contract MyBlockchainCorner {
     uint256 public percent;
     mapping(uint256 => Tile[4][4]) public pages;
 
-    function MyBlockchainCorner() public{
+    function MyBlockchainCorner() public {
         owner = msg.sender;
     }
 
-    function() public payable{}
+    function() public payable {}
 
     // ok
     function contractBalance() returns (uint256) {
