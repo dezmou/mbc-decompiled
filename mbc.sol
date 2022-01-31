@@ -30,31 +30,43 @@ contract MyBlockchainCorner {
     uint256 public percent;
     mapping(uint256 => Tile[4][4]) public pages;
 
+    function MyBlockchainCorner() public{
+        owner = msg.sender;
+    }
+
+    function() public payable{}
+
+    // ok
     function contractBalance() returns (uint256) {
         if (owner != msg.sender) throw;
         return address(this).balance;
     }
 
+    // ok
     function updateCost(uint256 _newCost) public {
         if (owner != msg.sender) throw;
         cost = _newCost;
     }
 
+    // ok
     function updateOwner(address _owner) public {
         if (owner != msg.sender) throw;
         owner = _owner;
     }
 
+    // ok
     function updatePercent(uint256 _percent) public {
         if (owner != msg.sender) throw;
         percent = _percent;
     }
 
+    // ok
     function withdraw() public {
         if (owner != msg.sender) throw;
         owner.transfer(this.balance);
     }
 
+    // OK
     function setPrice(
         uint256 page,
         uint32 x,
@@ -73,7 +85,7 @@ contract MyBlockchainCorner {
         );
     }
 
-    // // TODO
+    // TODO
     function setHtml(
         uint256 page,
         uint32 x,
@@ -92,6 +104,7 @@ contract MyBlockchainCorner {
         );
     }
 
+    // OK
     function buyTile(
         uint256 page,
         uint32 x,
@@ -114,14 +127,3 @@ contract MyBlockchainCorner {
         tile.price = 0;
     }
 }
-
-// SoldTile(
-//     page,
-//     x,
-//     y,
-//     pages[page][x][y].owner,
-//     msg.sender,
-//     pages[page][x][y].price
-// );
-
-// UpdatedTile(uint256,uint256,uint256,address,string,uint256)

@@ -102,6 +102,7 @@ def unknownc6030f4d(): # not payable
   require uint32(cd[68]) < 4
   log 0x6ea16f87: cd[4], cd[36] << 224, cd[68] << 224, stor[(3 * uint32(cd[68])) + (12 * uint32(cd[36])) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))].field_0, Array(len=('cd', 100).length, data=call.data[cd[100] + 36 len ('cd', 100).length]), stor[(3 * uint32(cd[68])) + (12 * uint32(cd[36])) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))].field_512
 
+#buyTile
 def unknown93ec714e(uint256 _param1, uint32 _param2, uint32 _param3, array _param4) payable: 
   require _param2 < 4
   require _param3 < 4
