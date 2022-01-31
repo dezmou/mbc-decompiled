@@ -73,7 +73,7 @@ def unknown8260dd31(uint256 _param1, uint32 _param2, uint32 _param3, uint256 _pa
       idx = idx + 32
       s = s + 1
       continue 
-  log 0x6ea16f87: _param1, _param2 << 224, _param3 << 224, stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3))].field_0, Array(len=stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length, data=mem[320 len stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length + (floor32(stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length - 1) + -stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length + 32 % 32)]), _param4
+  log 0x966ea16f: _param1, _param2 << 224, _param3 << 224, stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3))].field_0, Array(len=stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length, data=mem[320 len stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length + (floor32(stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length - 1) + -stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length + 32 % 32)]), _param4
 
 def unknownc6030f4d(): # not payable
   require uint32(cd[36]) < 4
@@ -98,7 +98,7 @@ def unknownc6030f4d(): # not payable
   require uint32(cd[68]) < 4
   require uint32(cd[36]) < 4
   require uint32(cd[68]) < 4
-  log 0x6ea16f87: cd[4], cd[36] << 224, cd[68] << 224, stor[(3 * uint32(cd[68])) + (12 * uint32(cd[36])) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))].field_0, Array(len=('cd', 100).length, data=call.data[cd[100] + 36 len ('cd', 100).length]), stor[(3 * uint32(cd[68])) + (12 * uint32(cd[36])) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))].field_512
+  log 0x966ea16f: cd[4], cd[36] << 224, cd[68] << 224, stor[(3 * uint32(cd[68])) + (12 * uint32(cd[36])) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))].field_0, Array(len=('cd', 100).length, data=call.data[cd[100] + 36 len ('cd', 100).length]), stor[(3 * uint32(cd[68])) + (12 * uint32(cd[36])) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))].field_512
 
 def unknown93ec714e(uint256 _param1, uint32 _param2, uint32 _param3, array _param4) payable: 
   require _param2 < 4

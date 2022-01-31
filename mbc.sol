@@ -36,37 +36,31 @@ contract MyBlockchainCorner {
 
     function() public payable {}
 
-    // ok
     function contractBalance() returns (uint256) {
         if (owner != msg.sender) throw;
         return address(this).balance;
     }
 
-    // ok
     function updateCost(uint256 _newCost) public {
         if (owner != msg.sender) throw;
         cost = _newCost;
     }
 
-    // ok
     function updateOwner(address _owner) public {
         if (owner != msg.sender) throw;
         owner = _owner;
     }
 
-    // ok
     function updatePercent(uint256 _percent) public {
         if (owner != msg.sender) throw;
         percent = _percent;
     }
 
-    // ok
     function withdraw() public {
         if (owner != msg.sender) throw;
         owner.transfer(this.balance);
     }
 
-    // OK
     function setPrice(
         uint256 page,
         uint32 x,
@@ -85,12 +79,11 @@ contract MyBlockchainCorner {
         );
     }
 
-    // OK
     function setHtml(
         uint256 page,
         uint32 x,
         uint32 y,
-        string  html
+        string html
     ) external {
         if (pages[page][x][y].owner != msg.sender) throw;
         pages[page][x][y].html = html;
@@ -104,7 +97,6 @@ contract MyBlockchainCorner {
         );
     }
 
-    // OK
     function buyTile(
         uint256 page,
         uint32 x,
