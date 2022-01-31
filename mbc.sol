@@ -2,6 +2,17 @@
 pragma solidity ^0.4.10;
 
 contract MyBlockchainCorner {
+    event SoldTile(
+        uint256 page,
+        uint256 x,
+        uint256 y,
+        address from,
+        address to,
+        uint256 price
+    );
+
+    event UpdatedTile(uint256 page, uint256 x, uint256 y, address owner, string html, uint256 price);
+
     struct Tile {
         address owner;
         string html;
@@ -35,6 +46,29 @@ contract MyBlockchainCorner {
     function withdraw() public {
         if (owner != msg.sender) throw;
         owner.transfer(this.balance);
-        // owner.call({value: address(this).balance}(""));
+    }
+
+    function setPrice(
+        uint256 page,
+        uint32 x,
+        uint32 y,
+        uint256 price
+    ) public {
+        if (pages[page][x][y].owner != msg.sender) throw;
+        pages[page][x][y].price = price;
+        UpdatedTile(page, x, y, pages[page][x][y].owner, pages[page][x][y].html, price);
     }
 }
+
+
+// SoldTile(
+//     page,
+//     x,
+//     y,
+//     pages[page][x][y].owner,
+//     msg.sender,
+//     pages[page][x][y].price
+// );
+
+
+// UpdatedTile(uint256,uint256,uint256,address,string,uint256)
