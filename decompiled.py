@@ -54,6 +54,7 @@ def withdraw(): # not payable
        gas 2300 * is_zero(value) wei
   require ext_call.success
 
+# Set Price
 def unknown8260dd31(uint256 _param1, uint32 _param2, uint32 _param3, uint256 _param4): # not payable
   require _param2 < 4
   require _param3 < 4
@@ -75,6 +76,7 @@ def unknown8260dd31(uint256 _param1, uint32 _param2, uint32 _param3, uint256 _pa
       continue 
   log 0x6ea16f87: _param1, _param2 << 224, _param3 << 224, stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3))].field_0, Array(len=stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length, data=mem[320 len stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length + (floor32(stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length - 1) + -stor[(3 * _param3) + (12 * _param2) + ('map', ('param', '_param1'), ('name', 'unknownc056b707', 3)) + 1].length + 32 % 32)]), _param4
 
+# setHtml
 def unknownc6030f4d(): # not payable
   require uint32(cd[36]) < 4
   require uint32(cd[68]) < 4

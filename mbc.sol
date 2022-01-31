@@ -11,7 +11,14 @@ contract MyBlockchainCorner {
         uint256 price
     );
 
-    event UpdatedTile(uint256 page, uint256 x, uint256 y, address owner, string html, uint256 price);
+    event UpdatedTile(
+        uint256 page,
+        uint256 x,
+        uint256 y,
+        address owner,
+        string html,
+        uint256 price
+    );
 
     struct Tile {
         address owner;
@@ -48,18 +55,71 @@ contract MyBlockchainCorner {
         owner.transfer(this.balance);
     }
 
-    function setPrice(
+    // function setPrice(
+    //     uint256 page,
+    //     uint32 x,
+    //     uint32 y,
+    //     uint256 price
+    // ) public {
+    //     if (pages[page][x][y].owner != msg.sender) throw;
+    //     pages[page][x][y].price = price;
+    //     UpdatedTile(
+    //         page,
+    //         x,
+    //         y,
+    //         pages[page][x][y].owner,
+    //         pages[page][x][y].html,
+    //         price
+    //     );
+    // }
+
+    // // TODO
+    // function setHtml(
+    //     uint256 page,
+    //     uint32 x,
+    //     uint32 y,
+    //     string html
+    // ) public {
+    //     if (pages[page][x][y].owner != msg.sender) throw;
+    //     pages[page][x][y].html = html;
+    //     UpdatedTile(
+    //         page,
+    //         x,
+    //         y,
+    //         pages[page][x][y].owner,
+    //         html,
+    //         pages[page][x][y].price
+    //     );
+    // }
+
+    function buyTile(
         uint256 page,
         uint32 x,
         uint32 y,
-        uint256 price
-    ) public {
-        if (pages[page][x][y].owner != msg.sender) throw;
-        pages[page][x][y].price = price;
-        UpdatedTile(page, x, y, pages[page][x][y].owner, pages[page][x][y].html, price);
+        string html
+    ) public payable {
+        if (pages[page][x][y].owner == 0) {
+            if (msg.value != cost) throw;
+            SoldTile(page, x, y, this, msg.sender, cost);
+        } else {
+            if (pages[page][x][y].owner == msg.sender) throw;
+            if (pages[page][x][y].price == 0) throw;
+            if (msg.value < pages[page][x][y].price) throw;
+            SoldTile(
+                page,
+                x,
+                y,
+                pages[page][x][y].owner,
+                msg.sender,
+                pages[page][x][y].price
+            );
+            pages[page][x][y].owner.transfer(pages[page][x][y].price * percent / 100);
+            pages[page][x][y].owner = msg.sender;
+            pages[page][x][y].html = html;
+            pages[page][x][y].price = 0;
+        }
     }
 }
-
 
 // SoldTile(
 //     page,
@@ -69,6 +129,5 @@ contract MyBlockchainCorner {
 //     msg.sender,
 //     pages[page][x][y].price
 // );
-
 
 // UpdatedTile(uint256,uint256,uint256,address,string,uint256)
