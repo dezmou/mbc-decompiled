@@ -8,6 +8,6 @@ the goal is to have the exact decompiled pseudo code as decompiled.py (py extens
 
 So it work, I recreated the contract and when I use panoramix to decompile it, it return the very exact pseudo code as the original contract
 
-I am not able to submit it to etherscan because the bytecode contain a metadata hash from the source code ( commentary included) and the compiler version and optimization.
+I am not able to submit it to etherscan because the bytecode contain a metadata hash from the source code (commentary included), the compiler version and optimizations.
 
-I obviously don't have those information 
+I obviously don't have those informations
