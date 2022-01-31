@@ -85,13 +85,13 @@ contract MyBlockchainCorner {
         );
     }
 
-    // TODO
+    // OK
     function setHtml(
         uint256 page,
         uint32 x,
         uint32 y,
-        string html
-    ) public {
+        string  html
+    ) external {
         if (pages[page][x][y].owner != msg.sender) throw;
         pages[page][x][y].html = html;
         UpdatedTile(

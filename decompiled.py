@@ -31,6 +31,7 @@ def unknownc056b707(uint256 _param1, uint256 _param2, uint256 _param3): # not pa
 def _fallback() payable: # default function
   stop
 
+
 def contractBalance(): # not payable
   require stor0 == caller
   return eth.balance(this.address)
