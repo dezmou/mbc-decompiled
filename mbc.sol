@@ -55,42 +55,42 @@ contract MyBlockchainCorner {
         owner.transfer(this.balance);
     }
 
-    // function setPrice(
-    //     uint256 page,
-    //     uint32 x,
-    //     uint32 y,
-    //     uint256 price
-    // ) public {
-    //     if (pages[page][x][y].owner != msg.sender) throw;
-    //     pages[page][x][y].price = price;
-    //     UpdatedTile(
-    //         page,
-    //         x,
-    //         y,
-    //         pages[page][x][y].owner,
-    //         pages[page][x][y].html,
-    //         price
-    //     );
-    // }
+    function setPrice(
+        uint256 page,
+        uint32 x,
+        uint32 y,
+        uint256 price
+    ) public {
+        if (pages[page][x][y].owner != msg.sender) throw;
+        pages[page][x][y].price = price;
+        UpdatedTile(
+            page,
+            x,
+            y,
+            pages[page][x][y].owner,
+            pages[page][x][y].html,
+            price
+        );
+    }
 
     // // TODO
-    // function setHtml(
-    //     uint256 page,
-    //     uint32 x,
-    //     uint32 y,
-    //     string html
-    // ) public {
-    //     if (pages[page][x][y].owner != msg.sender) throw;
-    //     pages[page][x][y].html = html;
-    //     UpdatedTile(
-    //         page,
-    //         x,
-    //         y,
-    //         pages[page][x][y].owner,
-    //         html,
-    //         pages[page][x][y].price
-    //     );
-    // }
+    function setHtml(
+        uint256 page,
+        uint32 x,
+        uint32 y,
+        string html
+    ) public {
+        if (pages[page][x][y].owner != msg.sender) throw;
+        pages[page][x][y].html = html;
+        UpdatedTile(
+            page,
+            x,
+            y,
+            pages[page][x][y].owner,
+            html,
+            pages[page][x][y].price
+        );
+    }
 
     function buyTile(
         uint256 page,
@@ -98,26 +98,20 @@ contract MyBlockchainCorner {
         uint32 y,
         string html
     ) public payable {
-        if (pages[page][x][y].owner == 0) {
+        Tile tile = pages[page][x][y];
+        if (tile.owner == 0) {
             if (msg.value != cost) throw;
             SoldTile(page, x, y, this, msg.sender, cost);
         } else {
-            if (pages[page][x][y].owner == msg.sender) throw;
-            if (pages[page][x][y].price == 0) throw;
-            if (msg.value < pages[page][x][y].price) throw;
-            SoldTile(
-                page,
-                x,
-                y,
-                pages[page][x][y].owner,
-                msg.sender,
-                pages[page][x][y].price
-            );
-            pages[page][x][y].owner.transfer(pages[page][x][y].price * percent / 100);
-            pages[page][x][y].owner = msg.sender;
-            pages[page][x][y].html = html;
-            pages[page][x][y].price = 0;
+            if (tile.owner == msg.sender) throw;
+            if (tile.price == 0) throw;
+            if (msg.value < tile.price) throw;
+            SoldTile(page, x, y, tile.owner, msg.sender, tile.price);
+            tile.owner.transfer((tile.price * percent) / 100);
         }
+        pages[page][x][y].owner = msg.sender;
+        tile.html = html;
+        tile.price = 0;
     }
 }
 

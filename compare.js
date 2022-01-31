@@ -19,6 +19,8 @@ const bash = (command) => {
     const file = fs.readFileSync("./compiled/MyBlockchainCorner.bin-runtime")
     const res = (await bash(`python -m panoramix ${file}`))
     console.log(res);
+    console.log(file.length + " / 6612");
+
 })()
 
 
