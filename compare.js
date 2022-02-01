@@ -19,15 +19,30 @@ const bash = (command) => {
 ;(async () => {
     // const file = fs.readFileSync("./compiled/MyBlockchainCorner.bin-runtime")
     // const file = fs.readFileSync("./compiled/MyEthereumCorner.bin-runtime")
-    const compiled = (await bash(`solc MyBlokchainCorner.sol --optimize --bin-runtime`)).split("Binary of the runtime part: \n")[1]
-    const pseudoCodeCompiled = (await bash(`python -m panoramix ${compiled}`))
-    const pseudoCodeOriginal = (await bash(`python -m panoramix ${original}`))
-    // console.log(res);
-    console.log(pseudoCodeOriginal);
-    console.log(pseudoCodeCompiled);
-    console.log(pseudoCodeOriginal === pseudoCodeCompiled);
-    // console.log(res);
-    // console.log(file.length + " / 6612");
+    const optimiseValue = 14;
+    const compiled = (await bash(`solc MyBlokchainCorner.sol --optimize --optimize-runs ${optimiseValue} --bin-runtime`)).split("Binary of the runtime part: \n")[1]
+    // const pseudoCodeCompiled = (await bash(`python -m panoramix ${compiled}`))
+    // const pseudoCodeOriginal = (await bash(`python -m panoramix ${original}`))
+
+    const [pseudoCodeCompiled, pseudoCodeOriginal] = await Promise.all([
+        bash(`python -m panoramix ${compiled}`),
+        bash(`python -m panoramix ${original}`)
+    ])
+
+    fs.writeFileSync("test_original.py", pseudoCodeOriginal, "utf-8");
+    fs.writeFileSync("test_compiled.py", pseudoCodeCompiled, "utf-8");
+
+
+    console.log("ORIGINAL : ", original.length);
+    console.log(original);
+    console.log()
+    console.log("COMPILED : ", compiled.length);
+    console.log(compiled);
+    fs.writeFileSync("compared.txt", `${original}\n\n${compiled}`, "utf-8")
+
+    if (pseudoCodeOriginal !== pseudoCodeCompiled){
+        console.log("PSEUDO CODE NOT MATCHIN !");
+    }
 
 })()
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.4.10;
+pragma solidity ^0.4.11;
 
 contract MyBlockchainCorner {
     event SoldTile(
@@ -34,12 +34,12 @@ contract MyBlockchainCorner {
         owner = msg.sender;
     }
 
-    function() public payable {}
-
     function contractBalance() returns (uint256) {
         if (owner != msg.sender) throw;
         return address(this).balance;
     }
+
+    function() public payable {}
 
     function updateCost(uint256 _newCost) public {
         if (owner != msg.sender) throw;
