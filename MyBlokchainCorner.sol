@@ -27,7 +27,7 @@ contract MyBlockchainCorner {
     }
     address private owner;
     uint256 public cost;
-    uint256 public percent;
+    uint256 public percent = 5;
     mapping(uint256 => Tile[4][4]) public pages;
 
     function MyBlockchainCorner() public {
@@ -105,7 +105,7 @@ contract MyBlockchainCorner {
     ) public payable {
         Tile tile = pages[page][x][y];
         if (tile.owner == 0) {
-            if (msg.value != cost) throw;
+            if (msg.value < cost) throw;
             SoldTile(page, x, y, this, msg.sender, cost);
         } else {
             if (tile.owner == msg.sender) throw;

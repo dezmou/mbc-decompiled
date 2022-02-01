@@ -1,4 +1,5 @@
 const fs = require("fs");
+const original = require("./original")
 const { exec } = require("child_process");
 
 const bash = (command) => {
@@ -17,10 +18,16 @@ const bash = (command) => {
 
 ;(async () => {
     // const file = fs.readFileSync("./compiled/MyBlockchainCorner.bin-runtime")
-    const file = fs.readFileSync("./compiled/MyEthereumCorner.bin-runtime")
-    const res = (await bash(`python -m panoramix ${file}`))
-    console.log(res);
-    console.log(file.length + " / 6612");
+    // const file = fs.readFileSync("./compiled/MyEthereumCorner.bin-runtime")
+    const compiled = (await bash(`solc MyBlokchainCorner.sol --optimize --bin-runtime`)).split("Binary of the runtime part: \n")[1]
+    const pseudoCodeCompiled = (await bash(`python -m panoramix ${compiled}`))
+    const pseudoCodeOriginal = (await bash(`python -m panoramix ${original}`))
+    // console.log(res);
+    console.log(pseudoCodeOriginal);
+    console.log(pseudoCodeCompiled);
+    console.log(pseudoCodeOriginal === pseudoCodeCompiled);
+    // console.log(res);
+    // console.log(file.length + " / 6612");
 
 })()
 
