@@ -31,9 +31,9 @@ const bash = (command) => {
         bash(`python -m panoramix ${original}`)
     ])
 
+
     fs.writeFileSync("test_original.py", pseudoCodeOriginal, "utf-8");
     fs.writeFileSync("test_compiled.py", pseudoCodeCompiled, "utf-8");
-
 
     console.log("ORIGINAL : ", original.length);
     console.log(original);
@@ -42,12 +42,11 @@ const bash = (command) => {
     console.log(compiled);
     fs.writeFileSync("compared.txt", `${original}\n\n${compiled}`, "utf-8")
 
+    console.log(pseudoCodeCompiled);
+
     if (pseudoCodeOriginal !== pseudoCodeCompiled) {
         console.log("PSEUDO CODE NOT MATCHIN !");
     }
-
-    // console.log(compiledOpcode);
-
 })()
 
 

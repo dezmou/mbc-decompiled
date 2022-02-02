@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.4.11;
+pragma solidity 0.4.9;
 
 contract MyBlockchainCorner {
     event SoldTile(
@@ -58,7 +58,8 @@ contract MyBlockchainCorner {
 
     function withdraw() public {
         if (owner != msg.sender) throw;
-        owner.transfer(this.balance);
+        // owner.transfer(this.balance);
+        if (owner.send(this.balance) == false) throw;
     }
 
     function setPrice(
@@ -112,7 +113,8 @@ contract MyBlockchainCorner {
             if (tile.price == 0) throw;
             if (msg.value < tile.price) throw;
             SoldTile(page, x, y, tile.owner, msg.sender, tile.price);
-            tile.owner.transfer((tile.price * percent) / 100);
+            // tile.owner.transfer((tile.price * percent) / 100);
+            if (tile.owner.send((tile.price * percent) / 100) == false) throw;
         }
         pages[page][x][y].owner = msg.sender;
         tile.html = html;
