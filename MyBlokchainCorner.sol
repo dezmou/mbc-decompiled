@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.4.9;
+pragma solidity 0.4.11;
 
 contract MyBlockchainCorner {
     event SoldTile(
@@ -41,22 +41,22 @@ contract MyBlockchainCorner {
 
     function() public payable {}
 
-    function updateCost(uint256 _newCost) public {
+    function updateCost(uint256 _newCost) external {
         if (owner != msg.sender) throw;
         cost = _newCost;
     }
 
-    function updateOwner(address _owner) public {
+    function updateOwner(address _owner) external {
         if (owner != msg.sender) throw;
         owner = _owner;
     }
 
-    function updatePercent(uint256 _percent) public {
+    function updatePercent(uint256 _percent) external {
         if (owner != msg.sender) throw;
         percent = _percent;
     }
 
-    function withdraw() public {
+    function withdraw() external {
         if (owner != msg.sender) throw;
         // owner.transfer(this.balance);
         if (owner.send(this.balance) == false) throw;
@@ -67,7 +67,7 @@ contract MyBlockchainCorner {
         uint32 x,
         uint32 y,
         uint256 price
-    ) public {
+    ) external {
         if (pages[page][x][y].owner != msg.sender) throw;
         pages[page][x][y].price = price;
         UpdatedTile(
@@ -103,7 +103,7 @@ contract MyBlockchainCorner {
         uint32 x,
         uint32 y,
         string html
-    ) public payable {
+    ) external payable {
         Tile tile = pages[page][x][y];
         if (tile.owner == 0) {
             if (msg.value < cost) throw;
@@ -116,8 +116,10 @@ contract MyBlockchainCorner {
             // tile.owner.transfer((tile.price * percent) / 100);
             if (tile.owner.send((tile.price * percent) / 100) == false) throw;
         }
-        pages[page][x][y].owner = msg.sender;
-        tile.html = html;
-        tile.price = 0;
+        Tile tile2 = pages[page][x][y];
+        // pages[page][x][y].owner = msg.sender;
+        tile2.owner = msg.sender;
+        tile2.html = html;
+        tile2.price = 0;
     }
 }

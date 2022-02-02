@@ -22,15 +22,10 @@ const bash = (command) => {
     const optimiseValue = 14;
     const compiled = (await bash(`solc MyBlokchainCorner.sol --optimize --optimize-runs ${optimiseValue} --bin-runtime`)).split("Binary of the runtime part: \n")[1]
 
-    const compiledOpcode = (await bash(`solc MyBlokchainCorner.sol --optimize --optimize-runs ${optimiseValue} --opcodes`))
-    // const pseudoCodeCompiled = (await bash(`python -m panoramix ${compiled}`))
-    // const pseudoCodeOriginal = (await bash(`python -m panoramix ${original}`))
-
     const [pseudoCodeCompiled, pseudoCodeOriginal] = await Promise.all([
         bash(`python -m panoramix ${compiled}`),
         bash(`python -m panoramix ${original}`)
     ])
-
 
     fs.writeFileSync("test_original.py", pseudoCodeOriginal, "utf-8");
     fs.writeFileSync("test_compiled.py", pseudoCodeCompiled, "utf-8");
@@ -44,9 +39,38 @@ const bash = (command) => {
 
     console.log(pseudoCodeCompiled);
 
+    const getUnwrapBuyTileAsm = async (binary, funcHash) => {
+        let wrapper = "";
+        const asm = (await bash(`echo "${binary.replace("\n", "")}" | evmasm -d`)).split("\n")
+        let i = -1;
+        do { i += 1 } while (asm[i].indexOf(funcHash) === -1)
+        i += 2;
+        const wrapperBegin = `00000${asm[i].split("0x")[1]}`;
+        do { i += 1 } while (asm[i].indexOf(wrapperBegin) === -1)
+        do {
+            wrapper += `${asm[i]}\n`;
+            i += 1
+        } while (asm[i].indexOf("STOP") === -1 && asm[i].indexOf("RETURN") === -1)
+        wrapper += `${asm[i]}\n`;
+        return wrapper;
+    }
+
+    const [compiledWrapedBuyTile, originalWrapedBuyTile] = await Promise.all([
+        getUnwrapBuyTileAsm(compiled, "0xc6030f4d"),
+        getUnwrapBuyTileAsm(original, "0xc6030f4d"),
+    ])
+
+    console.log("Original wrapper :");
+    console.log(originalWrapedBuyTile);
+    console.log("Compiled  wrapper :");
+    console.log(compiledWrapedBuyTile);
+
+
+
     if (pseudoCodeOriginal !== pseudoCodeCompiled) {
         console.log("PSEUDO CODE NOT MATCHIN !");
     }
+
 })()
 
 
