@@ -116,10 +116,8 @@ contract MyBlockchainCorner {
             // tile.owner.transfer((tile.price * percent) / 100);
             if (tile.owner.send((tile.price * percent) / 100) == false) throw;
         }
-        Tile tile2 = pages[page][x][y];
-        // pages[page][x][y].owner = msg.sender;
-        tile2.owner = msg.sender;
-        tile2.html = html;
-        tile2.price = 0;
+        pages[page][x][y].owner = msg.sender;
+        tile.html = html;
+        tile.price = 0;
     }
 }
