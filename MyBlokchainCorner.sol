@@ -26,7 +26,7 @@ contract MyBlockchainCorner {
         uint256 price;
     }
     address private owner;
-    uint256 public cost;
+    uint256 public cost = 0.5 ether;
     uint256 public percent = 5;
     mapping(uint256 => Tile[4][4]) public pages;
 

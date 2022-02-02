@@ -14,13 +14,15 @@ const bash = (command) => {
             resolve(stdout)
         });
     })
-}
+};
 
-;(async () => {
+; (async () => {
     // const file = fs.readFileSync("./compiled/MyBlockchainCorner.bin-runtime")
     // const file = fs.readFileSync("./compiled/MyEthereumCorner.bin-runtime")
     const optimiseValue = 14;
     const compiled = (await bash(`solc MyBlokchainCorner.sol --optimize --optimize-runs ${optimiseValue} --bin-runtime`)).split("Binary of the runtime part: \n")[1]
+
+    const compiledOpcode = (await bash(`solc MyBlokchainCorner.sol --optimize --optimize-runs ${optimiseValue} --opcodes`))
     // const pseudoCodeCompiled = (await bash(`python -m panoramix ${compiled}`))
     // const pseudoCodeOriginal = (await bash(`python -m panoramix ${original}`))
 
@@ -40,9 +42,11 @@ const bash = (command) => {
     console.log(compiled);
     fs.writeFileSync("compared.txt", `${original}\n\n${compiled}`, "utf-8")
 
-    if (pseudoCodeOriginal !== pseudoCodeCompiled){
+    if (pseudoCodeOriginal !== pseudoCodeCompiled) {
         console.log("PSEUDO CODE NOT MATCHIN !");
     }
+
+    // console.log(compiledOpcode);
 
 })()
 
