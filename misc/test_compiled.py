@@ -108,6 +108,22 @@
   if not [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_0[0m:
       require call.value[1m >= [0m[32mcost[0m
       [38;5;8mlog 0xe1500d0d: cd[4], cd[36] << 224, cd[68] << 224, addr(this.address), caller, cost[0m
+      require [38;5;8muint32([0mcd[36][38;5;8m)[0m[1m < [0m4
+      require [38;5;8muint32([0mcd[68][38;5;8m)[0m[1m < [0m4
+      [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_0[0m = caller
+      [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_256[0m = (2[1m * [0m[32m('cd', 100).length[0m) + 1
+      [94ms[0m = 0
+      [94midx[0m = cd[100] + 36
+      [32mwhile [0mcd[100] + [32m('cd', 100).length[0m + 36[1m > [0m[94midx[0m[32m:[0m
+          [32mstor[[0m[94ms[0m + sha3((3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1)[32m][0m[32m.field_0[0m = cd[[94midx[0m]
+          [94ms[0m = [94ms[0m + 1
+          [94midx[0m = [94midx[0m + 32
+          [32mcontinue [0m
+      [94midx[0m = Mask(251, 0, [32m('cd', 100).length[0m + 31)[1m >> [0m5
+      [32mwhile [0m[32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1[32m][0m[32m.length[0m + 31[1m / [0m32[1m > [0m[94midx[0m[32m:[0m
+          [32mstor[[0m[94midx[0m + sha3((3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1)[32m][0m[32m.field_0[0m = 0
+          [94midx[0m = [94midx[0m + 1
+          [32mcontinue [0m
   else:
       require [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_0[0m != caller
       require [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_512[0m
@@ -117,22 +133,20 @@
          value [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_512[0m[1m * [0m[32mpercent[0m[1m / [0m100 [38;5;8mwei[0m
            gas 2300 * is_zero(value) [38;5;8mwei[0m
       require ext_call.success
-  require [38;5;8muint32([0mcd[36][38;5;8m)[0m[1m < [0m4
-  require [38;5;8muint32([0mcd[68][38;5;8m)[0m[1m < [0m4
-  [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_0[0m = caller
-  [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_256[0m = (2[1m * [0m[32m('cd', 100).length[0m) + 1
-  [94ms[0m = 0
-  [94midx[0m = cd[100] + 36
-  [32mwhile [0mcd[100] + [32m('cd', 100).length[0m + 36[1m > [0m[94midx[0m[32m:[0m
-      [32mstor[[0m[94ms[0m + sha3((3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1)[32m][0m[32m.field_0[0m = cd[[94midx[0m]
-      [94ms[0m = [94ms[0m + 1
-      [94midx[0m = [94midx[0m + 32
-      [32mcontinue [0m
-  [94midx[0m = Mask(251, 0, [32m('cd', 100).length[0m + 31)[1m >> [0m5
-  [32mwhile [0m[32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1[32m][0m[32m.length[0m + 31[1m / [0m32[1m > [0m[94midx[0m[32m:[0m
-      [32mstor[[0m[94midx[0m + sha3((3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1)[32m][0m[32m.field_0[0m = 0
-      [94midx[0m = [94midx[0m + 1
-      [32mcontinue [0m
+      [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_0[0m = caller
+      [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_256[0m = (2[1m * [0m[32m('cd', 100).length[0m) + 1
+      [94ms[0m = 0
+      [94midx[0m = cd[100] + 36
+      [32mwhile [0mcd[100] + [32m('cd', 100).length[0m + 36[1m > [0m[94midx[0m[32m:[0m
+          [32mstor[[0m[94ms[0m + sha3((3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1)[32m][0m[32m.field_0[0m = cd[[94midx[0m]
+          [94ms[0m = [94ms[0m + 1
+          [94midx[0m = [94midx[0m + 32
+          [32mcontinue [0m
+      [94midx[0m = Mask(251, 0, [32m('cd', 100).length[0m + 31)[1m >> [0m5
+      [32mwhile [0m[32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1[32m][0m[32m.length[0m + 31[1m / [0m32[1m > [0m[94midx[0m[32m:[0m
+          [32mstor[[0m[94midx[0m + sha3((3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3)) + 1)[32m][0m[32m.field_0[0m = 0
+          [94midx[0m = [94midx[0m + 1
+          [32mcontinue [0m
   [32mstor[[0m(3[1m * [0m[38;5;8muint32([0mcd[68][38;5;8m)[0m) + (12[1m * [0m[38;5;8muint32([0mcd[36][38;5;8m)[0m) + ('map', ('cd', 4), ('name', 'unknownc056b707', 3))[32m][0m[32m.field_512[0m = 0
 
 

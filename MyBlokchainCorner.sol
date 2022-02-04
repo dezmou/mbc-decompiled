@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.4.11;
+pragma solidity 0.4.9;
 
 contract MyBlockchainCorner {
     event SoldTile(
@@ -58,8 +58,7 @@ contract MyBlockchainCorner {
 
     function withdraw() external {
         if (owner != msg.sender) throw;
-        // owner.transfer(this.balance);
-        if (owner.send(this.balance) == false) throw;
+        owner.transfer(this.balance);
     }
 
     function setPrice(
@@ -98,12 +97,14 @@ contract MyBlockchainCorner {
         );
     }
 
+    // Original contract bytecode say this is external but panoramix say it is public
+    // So if you are trying to get the right bytecode you should set this at external
     function buyTile(
         uint256 page,
         uint32 x,
         uint32 y,
         string html
-    ) external payable {
+    ) public payable { 
         Tile tile = pages[page][x][y];
         if (tile.owner == 0) {
             if (msg.value < cost) throw;
@@ -113,10 +114,9 @@ contract MyBlockchainCorner {
             if (tile.price == 0) throw;
             if (msg.value < tile.price) throw;
             SoldTile(page, x, y, tile.owner, msg.sender, tile.price);
-            // tile.owner.transfer((tile.price * percent) / 100);
-            if (tile.owner.send((tile.price * percent) / 100) == false) throw;
+            tile.owner.transfer((tile.price * percent) / 100);
         }
-        pages[page][x][y].owner = msg.sender;
+        tile.owner = msg.sender;
         tile.html = html;
         tile.price = 0;
     }

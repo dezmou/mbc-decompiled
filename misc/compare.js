@@ -81,7 +81,7 @@ const bash = (command) => {
             }
             if (started > -1) {
                 started += 1;
-                if (started < 10) {
+                if (started < 7000) {
                     res += byteCode[i] + "\n";
                 }
                 else {
@@ -89,6 +89,7 @@ const bash = (command) => {
                 }
             }
         }
+        return res;
     }
 
     const selector = "0x93ec714e"
@@ -106,17 +107,22 @@ const bash = (command) => {
     console.log("Compiled  wrapper :");
     console.log(compiledWrapedBuyTile);
 
-    const compiledBody = getBody(compiledBytcode, compiledWrapedBuyTile);
+    const compiledBody = getBody(compiledBytcode, originalWrapedBuyTile);
     const originalBody = getBody(originalBytecode, originalWrapedBuyTile);
 
-    console.log("Original body");
-    console.log(originalBody);
-    console.log("Compiled body");
-    console.log(compiledBody);
+    // fs.writeFileSync("original_tmp.txt", originalBody, "utf-8");
+    // fs.writeFileSync("compiled_tmp2.txt", compiledBody, "utf-8");
+    // fs.writeFileSync("compiled_tmp2.txt", compiledBytcode.join("\n"), "utf-8");
+
 
     if (pseudoCodeOriginal !== pseudoCodeCompiled) {
         console.log("PSEUDO CODE NOT MATCHIN !");
     }
+    if (originalBody !== compiledBody) {
+        console.log("BODY NOT MATCHIN");
+    }
+
+    console.log(`original : ${original.length}, compiled : ${compiled.length}`);
 
 })()
 
